@@ -3,14 +3,15 @@ import './App.css';
 import NotificationAPI from './bagher/index';
 // import { PopupPosition } from './bagher/interfaces';
 function App() {
+  const userId='3';
   const notificationspi=new NotificationAPI({
-    clientId: '24nojpnrsdc53fkslha0roov05',
-    userId: 'sahand'
+    clientId: '74763kfj366vdlde4jg20fibj5',
+    userId
   });
   const onSubscribe=()=>{
     notificationspi.askForWebPushPermission()
   }
-  const userId='1';
+
 
   useEffect(() => {
 
