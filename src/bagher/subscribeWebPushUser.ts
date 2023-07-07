@@ -44,7 +44,7 @@ export const subscribeWebPushUser = (
                 });
             }
           });
-        });
+        }).catch((e)=>{console.log(e)});
     // });
   }
 };
