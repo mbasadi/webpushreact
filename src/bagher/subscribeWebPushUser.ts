@@ -28,6 +28,7 @@ export const subscribeWebPushUser = (
                   applicationServerKey
                 })
                 .then(async (res) => {
+                  console.log(res)
                   await client.post(
                     JSON.stringify({
                       id: userId,
