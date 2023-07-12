@@ -30,6 +30,8 @@ export class Client {
       headers: this.getHeaders(),
       method: 'POST'
     })
+    console.log('body',JSON.stringify(body))
+    console.log('headers',this.getHeaders())
     try{
     await fetch(this.url, {
       body: JSON.stringify(body),
