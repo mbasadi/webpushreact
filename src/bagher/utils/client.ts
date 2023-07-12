@@ -25,6 +25,11 @@ export class Client {
   }
 
   async post<T>(body: T): Promise<void> {
+    console.log(this.url, {
+      body: JSON.stringify(body),
+      headers: this.getHeaders(),
+      method: 'POST'
+    })
     await fetch(this.url, {
       body: JSON.stringify(body),
       headers: this.getHeaders(),
