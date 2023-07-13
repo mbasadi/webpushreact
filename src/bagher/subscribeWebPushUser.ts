@@ -1,5 +1,4 @@
 // subscribeWebPushUser.ts
-import axios from "axios";
 import { PushSubscription } from './interfaces';
 // import { Client } from './utils/client';
 
@@ -61,24 +60,6 @@ export const subscribeWebPushUser = (
                     });}catch(e){
                       console.log(e)
                     }
-                  await axios(    {
-                    url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`,
-                    method: 'post',
-                    data: {
-                      webPushTokens: [
-                        {
-                          sub: {
-                            endpoint: res.toJSON().endpoint as string,
-                            keys: res.toJSON().keys as PushSubscription['keys']
-                          }
-                        }
-                      ]
-                    },
-                    headers: {
-                      'content-type': 'application/json',
-                      Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
-                    }
-                  })
                 });
             }
           });
