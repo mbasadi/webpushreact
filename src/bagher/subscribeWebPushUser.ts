@@ -1,7 +1,7 @@
 // subscribeWebPushUser.ts
 import axios from "axios";
 import { PushSubscription } from './interfaces';
-import { Client } from './utils/client';
+// import { Client } from './utils/client';
 
 const defaultRestAPIUrl = 'https://api.notificationapi.com';
 export const subscribeWebPushUser = (
