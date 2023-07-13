@@ -14,31 +14,19 @@ export class Client {
 
   private getHeaders() {
     const headers = {
-      'Content-Type': 'application/json',
-      Authorization: this.authorization as string
+      'content-type': 'application/json',
+      Authorization: this.authorization
     };
 
     return headers;
   }
 
   async post<T>(body: T): Promise<void> {
-    console.log(this.url, {
-      body: JSON.stringify(body),
-      headers: this.getHeaders(),
-      method: 'POST'
-    })
-    console.log('body',JSON.stringify(body))
-    console.log('headers',this.getHeaders())
-    try{
+
       await fetch(this.url, {
         body: JSON.stringify(body),
-        headers:  {
-          'content-type': 'application/json',
-          Authorization: this.authorization
-        },
+        headers: this.getHeaders() ,
         method: 'POST'
-      });}catch(e){
-      console.log(e)
-    }
+      });
   }
 }
