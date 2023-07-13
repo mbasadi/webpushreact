@@ -1,6 +1,6 @@
 // subscribeWebPushUser.ts
 import { PushSubscription } from './interfaces';
-// import { Client } from './utils/client';
+import { Client } from './utils/client';
 
 const defaultRestAPIUrl = 'https://api.notificationapi.com';
 export const subscribeWebPushUser = (
@@ -9,6 +9,12 @@ export const subscribeWebPushUser = (
   userId: string,
   hashUserId?: string
 ): void => {
+  const client = new Client({
+    authorization:
+    'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
+    ,
+    url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`
+  });
   if ('serviceWorker' in navigator) {
     // window.addEventListener('load', () => {
       navigator.serviceWorker
@@ -22,10 +28,8 @@ export const subscribeWebPushUser = (
                   applicationServerKey
                 })
                 .then(async (res) => {
-                  console.log({
-                    url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`,
-                    method: 'post',
-                    data: {
+                  await client.post(
+                    {
                       webPushTokens: [
                         {
                           sub: {
@@ -34,32 +38,8 @@ export const subscribeWebPushUser = (
                           }
                         }
                       ]
-                    },
-                    headers: {
-                      'content-type': 'application/json',
-                      Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
                     }
-                  })
-                  try{
-                    await fetch(`${defaultRestAPIUrl}/${clientId}/users/${userId}`, {
-                      body: JSON.stringify({
-                        webPushTokens: [
-                          {
-                            sub: {
-                              endpoint: res.toJSON().endpoint as string,
-                              keys: res.toJSON().keys as PushSubscription['keys']
-                            }
-                          }
-                        ]
-                      }),
-                      headers:  {
-                        'content-type': 'application/json',
-                        Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
-                      },
-                      method: 'POST'
-                    });}catch(e){
-                      console.log(e)
-                    }
+                  );
                 });
             }
           });

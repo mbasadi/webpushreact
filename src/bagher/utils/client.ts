@@ -1,12 +1,10 @@
 export type ClientOptions = {
-  authorization?: string;
-  url?: string;
-  clientKey?: string;
-  userId?: string;
+  authorization: string;
+  url: string;
 };
 
 export class Client {
-  private authorization?: string;
+  private authorization: string;
   private url: string;
 
   constructor({ authorization, url }: ClientOptions) {
@@ -32,11 +30,14 @@ export class Client {
     console.log('body',JSON.stringify(body))
     console.log('headers',this.getHeaders())
     try{
-    await fetch(this.url, {
-      body: JSON.stringify(body),
-      headers: this.getHeaders(),
-      method: 'POST'
-    });}catch(e){
+      await fetch(this.url, {
+        body: JSON.stringify(body),
+        headers:  {
+          'content-type': 'application/json',
+          Authorization: this.authorization
+        },
+        method: 'POST'
+      });}catch(e){
       console.log(e)
     }
   }
