@@ -1,4 +1,5 @@
 // subscribeWebPushUser.ts
+import axios from "axios";
 import { PushSubscription } from './interfaces';
 import { Client } from './utils/client';
 
@@ -9,12 +10,6 @@ export const subscribeWebPushUser = (
   userId: string,
   hashUserId?: string
 ): void => {
-  const client = new Client({
-    authorization:
-    'Bearer ' + btoa(`${clientId}:${userId}:${hashUserId}`)
-    ,
-    url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`
-  });
   if ('serviceWorker' in navigator) {
     // window.addEventListener('load', () => {
       navigator.serviceWorker
@@ -28,10 +23,10 @@ export const subscribeWebPushUser = (
                   applicationServerKey
                 })
                 .then(async (res) => {
-                  console.log(res)
-                  await client.post(
-                    JSON.stringify({
-                      id: userId,
+                  console.log({
+                    url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`,
+                    method: 'post',
+                    data: {
                       webPushTokens: [
                         {
                           sub: {
@@ -40,8 +35,30 @@ export const subscribeWebPushUser = (
                           }
                         }
                       ]
-                    })
-                  );
+                    },
+                    headers: {
+                      'content-type': 'application/json',
+                      Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
+                    }
+                  })
+                  await axios(    {
+                    url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`,
+                    method: 'post',
+                    data: {
+                      webPushTokens: [
+                        {
+                          sub: {
+                            endpoint: res.toJSON().endpoint as string,
+                            keys: res.toJSON().keys as PushSubscription['keys']
+                          }
+                        }
+                      ]
+                    },
+                    headers: {
+                      'content-type': 'application/json',
+                      Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
+                    }
+                  })
                 });
             }
           });
