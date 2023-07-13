@@ -17,7 +17,6 @@ export class Client {
   private getHeaders() {
     const headers = {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
       Authorization: this.authorization as string
     };
 

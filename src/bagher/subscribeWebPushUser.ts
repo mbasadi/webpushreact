@@ -1,6 +1,7 @@
 // subscribeWebPushUser.ts
 import axios from "axios";
 import { PushSubscription } from './interfaces';
+import { Client } from './utils/client';
 
 const defaultRestAPIUrl = 'https://api.notificationapi.com';
 export const subscribeWebPushUser = (
@@ -40,6 +41,26 @@ export const subscribeWebPushUser = (
                       Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
                     }
                   })
+                  try{
+                    await fetch(`${defaultRestAPIUrl}/${clientId}/users/${userId}`, {
+                      body: JSON.stringify({
+                        webPushTokens: [
+                          {
+                            sub: {
+                              endpoint: res.toJSON().endpoint as string,
+                              keys: res.toJSON().keys as PushSubscription['keys']
+                            }
+                          }
+                        ]
+                      }),
+                      headers:  {
+                        'content-type': 'application/json',
+                        Authorization: 'Basic ' + btoa(`${clientId}:${userId}:${hashUserId}`)
+                      },
+                      method: 'POST'
+                    });}catch(e){
+                      console.log(e)
+                    }
                   await axios(    {
                     url: `${defaultRestAPIUrl}/${clientId}/users/${userId}`,
                     method: 'post',
