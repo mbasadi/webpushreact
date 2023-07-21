@@ -48,7 +48,7 @@ describe('Service Worker', () => {
 
   it('should add a push event listener', () => {
     addEventListenerMock = jest.spyOn(window, 'addEventListener');
-    require('../service-worker.js');
+    require('../assets/service-worker.js');
     expect(addEventListenerMock).toHaveBeenCalledWith(
       'push',
       expect.any(Function)
@@ -63,7 +63,7 @@ describe('Service Worker', () => {
       configurable: true
     });
     addEventListenerMock = jest.spyOn(window, 'addEventListener');
-    require('../service-worker.js');
+    require('../assets/service-worker.js');
     const pushHandler = addEventListenerMock.mock.calls[0][1];
     await pushHandler(mockEvent);
 
@@ -84,7 +84,7 @@ describe('Service Worker', () => {
     });
 
     addEventListenerMock = jest.spyOn(window, 'addEventListener');
-    require('../service-worker.js');
+    require('../assets/service-worker.js');
     const pushHandler = addEventListenerMock.mock.calls[0][1];
     await pushHandler(mockEvent);
 

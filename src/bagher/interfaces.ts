@@ -22,6 +22,7 @@ export interface NotificationAPIClientInterface {
   closeInAppPopup: () => void;
   setInAppUnread: (count: number) => void;
   renderPreferences: (preferences: Preference[]) => void;
+  renderWebPushOptIn: () => void;
   destroy: () => void;
   websocket?: WebSocket;
   elements: {
@@ -52,7 +53,7 @@ export interface NotificationAPIClientInterface {
     lastResponseNotificationsCount?: number;
     inappOptions?: InAppOptions;
     initOptions: InitOptions;
-    webPushSetting: WebPushSettings;
+    webPushSettings: WebPushSettings;
   };
   websocketHandlers: {
     notifications: (message: WS_NotificationsResponse) => void;

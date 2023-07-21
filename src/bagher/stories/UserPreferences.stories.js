@@ -35,7 +35,6 @@ LoadingState.args = {
     websocket: 'ws://localhost'
   }
 };
-
 export const EmptyState = Component.bind({});
 EmptyState.args = {
   initOptions: {
@@ -66,6 +65,12 @@ ComplexPreferenceState.args = {
         {
           channel: 'INAPP_WEB',
           channelName: 'In-App',
+          state: false
+        },
+
+        {
+          channel: 'PUSH',
+          channelName: 'PUSH',
           state: false
         }
       ]
@@ -192,7 +197,6 @@ ComplexPreferenceState.args = {
     }
   ]
 };
-
 export const Real = Component.bind({});
 Real.args = {
   initOptions: {
