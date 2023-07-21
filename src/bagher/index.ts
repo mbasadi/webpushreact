@@ -1188,7 +1188,7 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
   sendWSMessage(request: WS_ANY_VALID_REQUEST): void {
     if (!this.websocket) return;
     const ws = this.websocket;
-    if (ws.readyState == ws.OPEN) {
+    if (ws.readyState === ws.OPEN) {
       ws.send(JSON.stringify(request));
     } else {
       ws.addEventListener('open', () => {
@@ -1214,7 +1214,7 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
       if (!this.websocket) reject('Websocket is not present.');
       else {
         const ws = this.websocket;
-        if (ws.readyState == ws.OPEN) {
+        if (ws.readyState === ws.OPEN) {
           resolve(ws);
         }
       }
