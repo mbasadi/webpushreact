@@ -611,6 +611,7 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
           }
           if (body.route === 'user_preferences/preferences') {
             const message = body as WS_UserPreferencesResponse;
+            console.log(message)
             this.renderPreferences(message.payload.userPreferences);
           }
         });
