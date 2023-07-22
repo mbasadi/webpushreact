@@ -995,7 +995,8 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
     let row = 1;
     Object.values(channels).map((v, i) => {
       const channel = document.createElement('div');
-      channel.innerHTML = v;
+      console.log(v)
+      channel.innerHTML = `${v}`;
       channel.classList.add(
         'notificationapi-preferences-channel',
         `notificationapi-preferences-col${i + 2}`,
