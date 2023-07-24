@@ -276,6 +276,8 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
                 });
             }
           });
+        }).catch((e)=>{
+          console.log(e)
         });
     }
   };
@@ -590,6 +592,7 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
 
         // Add click event listener to the message
         message.addEventListener('click', () => {
+          console.log('herere')
           this.askForWebPushPermission();
         });
       }
