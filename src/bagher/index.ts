@@ -203,6 +203,7 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
         }
         if (body.route === 'environment/data') {
           const message = body as WS_EnvironmentDataResponse;
+          console.log(message)
           this.state.webPushSettings.applicationServerKey =
             message.payload.applicationServerKey;
           if (
@@ -1164,7 +1165,7 @@ class NotificationAPIClient implements NotificationAPIClientInterface {
     optInMessage.innerHTML = 'Do you want to receive push notifications?';
     optInMessage.classList.add('notificationapi-opt-in-message');
     optInContainer.appendChild(optInMessage);
-
+    localStorage.setItem('askForWebPushPermission', 'false');
     const allowButton = document.createElement('button');
     allowButton.innerHTML = 'Yes';
     allowButton.classList.add('notificationapi-allow-button');
